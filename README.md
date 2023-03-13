@@ -1,4 +1,4 @@
-# Test React App
+# Todo React App
 
 ## Available Scripts
 
