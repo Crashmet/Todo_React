@@ -4,6 +4,7 @@ import TodoForm from './components/Todos/TodoForm';
 import TodosActions from './components/Todos/TodosActions';
 import TodoList from './components/Todos/TodoList';
 import './App.css';
+import { RiH2 } from 'react-icons/ri';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -58,6 +59,11 @@ function App() {
         deleteTodo={deleteTodoHandler}
         toggleTodo={toggleTodoHandler}
       />
+      {complitedTodosCount > 0 && (
+        <h2>{`You have complited ${complitedTodosCount} ${
+          complitedTodosCount > 1 ? 'todos' : 'todo'
+        }`}</h2>
+      )}
     </div>
   );
 }
