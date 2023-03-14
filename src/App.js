@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import TodoForm from './components/Todos/TodoForm';
+import TodosActions from './components/Todos/TodosActions';
 import TodoList from './components/Todos/TodoList';
 import './App.css';
 
@@ -21,11 +22,42 @@ function App() {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
+  const toggleTodoHandler = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id
+          ? { ...todo, isComplited: !todo.isComplited }
+          : { ...todo }
+      )
+    );
+  };
+
+  const resetTodosHandler = () => {
+    setTodos([]);
+  };
+
+  const deleteComplitedTodosHandler = () => {
+    setTodos(todos.filter((todo) => !todo.isComplited));
+  };
+
+  const complitedTodosCount = todos.filter((todo) => todo.isComplited).length;
+
   return (
     <div className="App">
       <h1>Todo App</h1>
       <TodoForm addTodo={addTodoHandler} />
-      <TodoList todos={todos} deleteTodo={deleteTodoHandler} />
+      {!!todos.length && (
+        <TodosActions
+          complitedTodosExist={!!complitedTodosCount}
+          resetTodos={resetTodosHandler}
+          deleteComplitedTodos={deleteComplitedTodosHandler}
+        />
+      )}
+      <TodoList
+        todos={todos}
+        deleteTodo={deleteTodoHandler}
+        toggleTodo={toggleTodoHandler}
+      />
     </div>
   );
 }
